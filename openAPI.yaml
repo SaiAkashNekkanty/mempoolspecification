@@ -16,7 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/difficultyData'
+                $ref: '#/components/schemas/DifficultyAdjustmentResponse'
   /fees/recommended:
     get:
       summary: Retrieve Transaction Fee Information
@@ -27,10 +27,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/feeData'
+                $ref: '#/components/schemas/TransactionFeesResponse'
 components:
   schemas:
-    difficultyData:
+    DifficultyAdjustmentResponse:
       type: object
       properties:
         remainingTime:
@@ -52,7 +52,7 @@ components:
           type: integer
           format: int64
           description: Unix timestamp of the estimated retarget date
-    feeData:
+    TransactionFeesResponse:
       type: object
       properties:
         minimumFee:
