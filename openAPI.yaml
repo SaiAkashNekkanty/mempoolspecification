@@ -17,7 +17,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DifficultyAdjustmentResponse'
-  /transaction-fees:
+  /fees/recommended:
     get:
       summary: Retrieve Transaction Fee Information
       description: Returns data related to Bitcoin transaction fees.
@@ -55,12 +55,15 @@ components:
     TransactionFeesResponse:
       type: object
       properties:
-        fastestFee:
+        minimumFee:
           type: number
-          description: The fastest fee, in satoshis per byte, that will get a transaction confirmed within the next few blocks
-        halfHourFee:
+          description: The minimum fee, in satoshis per byte, with no priority
+        economyFee:
           type: number
-          description: The fee, in satoshis per byte, that will get a transaction confirmed within the next half hour
+          description: The fee, in satoshis per byte, for low priority transactions
         hourFee:
           type: number
-          description: The fee, in satoshis per byte, that will get a transaction confirmed within the next hour
+          description: The fee, in satoshis per byte, for medium priority transactions
+        halfHourFee:
+          type: number
+          description: The fee, in satoshis per byte, for high priority transactions
