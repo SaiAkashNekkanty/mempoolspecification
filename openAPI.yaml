@@ -16,7 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DifficultyAdjustmentResponse'
+                $ref: '#/components/schemas/difficultyData'
   /fees/recommended:
     get:
       summary: Retrieve Transaction Fee Information
@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionFeesResponse'
+                $ref: '#/components/schemas/feeData'
 components:
   schemas:
     DifficultyAdjustmentResponse:
