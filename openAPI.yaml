@@ -48,13 +48,6 @@ components:
           type: string
           description: Error message if there is any issue fetching the data
 
-
-
-
-
-
-components:
-  schemas:
     TransactionFeeData:
       type: object
       properties:
@@ -71,8 +64,6 @@ components:
           type: number
           description: Fee rate for transactions with high priority (sat/vB)
 
-components:
-  schemas:
     TransactionFee:
       type: object
       properties:
@@ -82,4 +73,3 @@ components:
         errorMessage:
           type: string
           description: Error message if there is any issue fetching the data
-          
