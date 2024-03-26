@@ -13,6 +13,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/miningpool'
+                $ref: "#/components/schemas/DifficultyAdjustmentData"
+                $ref: "#/components/schemas/TransactionFeeData"
+                
 
 components:
   schemas:
