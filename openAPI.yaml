@@ -1,83 +1,66 @@
 openapi: 3.0.0
 info:
-  title: Mining Pools Mempool API
+  title: Bitcoin Mining APIs
+  description: APIs for retrieving Bitcoin mining information including difficulty adjustment and transaction fees
   version: 1.0.0
+servers:
+  - url: https://mempool.space/api/v1
 paths:
-  /mining/pools/24h:
+  /difficulty-adjustment:
     get:
-      summary: Get mining pool statistics for the last 24 hours
+      summary: Retrieve Difficulty Adjustment Information
+      description: Returns data related to Bitcoin mining difficulty adjustment.
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-          
-                $ref: "#/components/schemas/DifficultyAdjustmentData"
-                $ref: "#/components/schemas/TransactionFeeData"
-                
-
-
-
+                $ref: '#/components/schemas/DifficultyAdjustmentResponse'
+  /transaction-fees:
+    get:
+      summary: Retrieve Transaction Fee Information
+      description: Returns data related to Bitcoin transaction fees.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionFeesResponse'
 components:
   schemas:
-    DifficultyAdjustmentData:
+    DifficultyAdjustmentResponse:
       type: object
       properties:
         remainingTime:
           type: integer
-          description: Estimated time until the next difficulty adjustment in seconds
+          description: Remaining time until the next difficulty adjustment in seconds
         timeAvg:
-          type: number
+          type: integer
           description: Average block time in seconds
         difficultyChange:
           type: number
-          description: Percentage change in difficulty
+          description: Change in mining difficulty as a percentage
         previousRetarget:
           type: number
-          description: Percentage of the previous difficulty change
+          description: Previous difficulty change as a percentage
         nextRetargetHeight:
           type: integer
           description: Height at which the next difficulty retarget will occur
         estimatedRetargetDate:
-          type: string
-          format: date-time
-          description: Expected date and time of the next difficulty adjustment
-
-    DifficultyAdjustment:
+          type: integer
+          format: int64
+          description: Unix timestamp of the estimated retarget date
+    TransactionFeesResponse:
       type: object
       properties:
-        difficultyData:
-          $ref: "#/components/schemas/DifficultyAdjustmentData"
-        errorMessage:
-          type: string
-          description: Error message if there is any issue fetching the data
-
-    TransactionFeeData:
-      type: object
-      properties:
-        minimumFee:
+        fastestFee:
           type: number
-          description: Fee rate for transactions with no priority (sat/vB)
-        economyFee:
-          type: number
-          description: Fee rate for transactions with low priority (sat/vB)
-        hourFee:
-          type: number
-          description: Fee rate for transactions with medium priority (sat/vB)
+          description: The fastest fee, in satoshis per byte, that will get a transaction confirmed within the next few blocks
         halfHourFee:
           type: number
-          description: Fee rate for transactions with high priority (sat/vB)
-
-    TransactionFee:
-      type: object
-      properties:
-        feeData:
-          $ref: "#/components/schemas/TransactionFeeData"
-          description: Data related to transaction fees
-        errorMessage:
-          type: string
-          description: Error message if there is any issue fetching the data
-
-
-          description: The unique ID of the pool
+          description: The fee, in satoshis per byte, that will get a transaction confirmed within the next half hour
+        hourFee:
+          type: number
+          description: The fee, in satoshis per byte, that will get a transaction confirmed within the next hour
