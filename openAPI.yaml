@@ -16,51 +16,70 @@ paths:
 
 components:
   schemas:
-    miningpool:
+    DifficultyAdjustmentData:
       type: object
       properties:
-        pools:
-          type: array
-          items:
-            $ref: '#/components/schemas/pool'
-        blockCount:
+        remainingTime:
           type: integer
-          description: Total number of blocks mined in the last 24 hours
-        lastEstimatedHashrate:
+          description: Estimated time until the next difficulty adjustment in seconds
+        timeAvg:
           type: number
-          description: Last estimated hashrate
+          description: Average block time in seconds
+        difficultyChange:
+          type: number
+          description: Percentage change in difficulty
+        previousRetarget:
+          type: number
+          description: Percentage of the previous difficulty change
+        nextRetargetHeight:
+          type: integer
+          description: Height at which the next difficulty retarget will occur
+        estimatedRetargetDate:
+          type: string
+          format: date-time
+          description: Expected date and time of the next difficulty adjustment
+
+    DifficultyAdjustment:
+      type: object
+      properties:
+        difficultyData:
+          $ref: "#/components/schemas/DifficultyAdjustmentData"
+        errorMessage:
+          type: string
+          description: Error message if there is any issue fetching the data
+
+
+
+
+
+
+components:
+  schemas:
+    TransactionFeeData:
+      type: object
+      properties:
+        minimumFee:
+          type: number
+          description: Fee rate for transactions with no priority (sat/vB)
+        economyFee:
+          type: number
+          description: Fee rate for transactions with low priority (sat/vB)
+        hourFee:
+          type: number
+          description: Fee rate for transactions with medium priority (sat/vB)
+        halfHourFee:
+          type: number
+          description: Fee rate for transactions with high priority (sat/vB)
+
+components:
+  schemas:
+    TransactionFee:
+      type: object
+      properties:
+        feeData:
+          $ref: "#/components/schemas/TransactionFeeData"
+          description: Data related to transaction fees
+        errorMessage:
+          type: string
+          description: Error message if there is any issue fetching the data
           
-    pool:
-      type: object
-      properties:
-        poolId:
-          type: integer
-          description: The unique ID of the pool
-        name:
-          type: string
-          description: The name of the mining pool
-        link:
-          type: string
-          format: uri
-          description: The URL of the mining pool's website
-        blockCount:
-          type: integer
-          description: Number of blocks mined by the pool in the last 24 hours
-        rank:
-          type: integer
-          description: The ranking of the pool based on blocks mined in the last 24 hours
-        emptyBlocks:
-          type: integer
-          description: Number of empty blocks mined by the pool in the last 24 hours
-        slug:
-          type: string
-          description: A unique identifier for the pool
-        avgMatchRate:
-          type: number
-          description: Average match rate of the pool's blocks in the last 24 hours
-        avgFeeDelta:
-          type: string
-          description: Average fee delta of the pool's blocks in the last 24 hours
-        poolUniqueId:
-          type: integer
-          description: The unique ID of the pool
