@@ -41,6 +41,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/ispRankingStats"
 
+  /difficulty-adjustment:
+    get:
+      summary: Retrieve Difficulty Adjustment Information
+      description: Returns data related to Bitcoin mining difficulty adjustment.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DifficultyAdjustmentResponse'
+  /fees/recommended:
+    get:
+      summary: Retrieve Transaction Fee Information
+      description: Returns data related to Bitcoin transaction fees.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionFeesResponse'
+
 components:
   schemas:
     miningpool:
@@ -133,31 +156,7 @@ components:
               anyOf:
                 - type: string
                 - type: integer
-paths:
-  /difficulty-adjustment:
-    get:
-      summary: Retrieve Difficulty Adjustment Information
-      description: Returns data related to Bitcoin mining difficulty adjustment.
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DifficultyAdjustmentResponse'
-  /fees/recommended:
-    get:
-      summary: Retrieve Transaction Fee Information
-      description: Returns data related to Bitcoin transaction fees.
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TransactionFeesResponse'
-components:
-  schemas:
+
     DifficultyAdjustmentResponse:
       type: object
       properties:
@@ -180,6 +179,7 @@ components:
           type: integer
           format: int64
           description: Unix timestamp of the estimated retarget date
+
     TransactionFeesResponse:
       type: object
       properties:
